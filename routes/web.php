@@ -26,19 +26,21 @@ Route::get('/', function () {
     ]);
 });
 
-/*Route::middleware([
-    'auth:sanctum',
-    config('jetstream.auth_session'),
-    'verified',
-])->group(function () {
-    Route::get('/dashboard', function () {
-        return Inertia::render('Dashboard');
-    })->name('dashboard');
-});*/
-
 Route::middleware(['auth', 'verified'])
     ->prefix('dashboard')
     ->group(function () {
+
+        // Ruta pública para usuarios autenticados y verificados
         Route::get('/', [DashboardController::class, 'index'])->name('dashboard');
-        Route::get('usuarios',[UsuarioController::class,'index'])->name('usuarios.index');
+
+        // Rutas protegidas por middleware 'admin'
+        Route::middleware(['admin'])->group(function () {
+            Route::get('usuarios', [UsuarioController::class, 'index'])->name('usuarios.index');
+            Route::get('usuarios/crear', [UsuarioController::class, 'create'])->name('usuarios.create');
+            Route::post('usuarios', [UsuarioController::class, 'store'])->name('usuarios.store');
+            Route::get('usuarios/{usuario}/editar', [UsuarioController::class, 'edit'])->name('usuarios.edit');
+            Route::put('usuarios/{usuario}', [UsuarioController::class, 'update'])->name('usuarios.update');
+            Route::delete('usuarios/{usuario}', [UsuarioController::class, 'destroy'])->name('usuarios.destroy');
+        });
+
     });
