@@ -47,5 +47,15 @@ class UsuarioController extends Controller
         return redirect()->route('usuarios.index')->with('success', 'Usuario creado exitosamente.');
     }
 
+    public function destroy(User $usuario)
+    {
 
+        if ($usuario->role === 'admin') {
+            return redirect()->route('usuarios.index')->with('failure', 'No se puede eliminar un usuario administrador.');
+        }
+
+        $usuario->delete();
+    
+        return redirect()->route('usuarios.index')->with('success', 'Usuario eliminado exitosamente.');
+    }
 }
