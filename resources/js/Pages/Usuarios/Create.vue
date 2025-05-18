@@ -50,21 +50,21 @@ const saveUser = () => {
         <Container>
             <Card>
                 <form @submit.prevent="saveUser">
-                    <div>
+                    <div class="mt-3">
                         <InputLabel for="name" value="Nombre" />
                         <TextInput id="name" v-model="form.name" type="text" class="mt-1 block w-full" required
                             autocomplete="Nombre" />
                         <InputError :message="form.errors.name" class="mt-2" />
                     </div>
 
-                    <div>
+                    <div class="mt-3">
                         <InputLabel for="email" value="Email" />
                         <TextInput id="email" v-model="form.email" type="text" class="mt-1 block w-full" required
                             autocomplete="Email" />
                         <InputError :message="form.errors.email" class="mt-2" />
                     </div>
 
-                    <div>
+                    <div class="mt-3">
                         <InputLabel for="password" value="Contraseña" />
                         <TextInput id="password" v-model="form.password" type="text" class="mt-1 block w-full" required
                             autocomplete="Contraseña" />
