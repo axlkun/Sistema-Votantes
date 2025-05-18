@@ -16,7 +16,11 @@ const props = defineProps({
 const headers = [
     { name: "Nombre" },
     { name: "Email" },
-    { name: "Registro" }
+    { name: "Registro" },
+    {
+        name: "Actions",
+        class: "text-right"
+    }
 ];
 
 const breadcrumbs = [
@@ -45,6 +49,16 @@ const breadcrumbs = [
                         <td>{{ user.name }}</td>
                         <td>{{ user.email }}</td>
                         <td>{{ user.created_at }}</td>
+                        <td>
+                            <div class="flex items-center justify-end space-x-2">
+
+                                <DeleteBtn 
+                                     v-if="user.role !== 'admin'"
+                                    :url="route('usuarios.destroy', { usuario: user.id })"
+                                    module-name="user">
+                                </DeleteBtn>
+                            </div>
+                        </td>
                     </tr>
                 </AppTable>
             </Card>
